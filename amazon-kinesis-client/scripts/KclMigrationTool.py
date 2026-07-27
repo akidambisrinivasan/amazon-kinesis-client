@@ -453,20 +453,10 @@ def run_kcl_migration(mode, lease_table_name):
 
 
 def validate_args(args):
-    if args.mode == 'rollforward':
-        if not (args.application_name):
-            raise ValueError(
-                "For rollforward mode, application_name must be provided."
-            )
-    else:
-        if args.application_name:
-            return
-
-        if not (args.lease_table_name):
-            raise ValueError(
-                "For rollback mode, either application_name or lease_table_name " +
-                "must be provided."
-            )
+    if not (args.application_name or args.lease_table_name):
+        raise ValueError(
+            "Either application_name or lease_table_name must be provided."
+        )
 
 def process_table_names(args):
     """
